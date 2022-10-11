@@ -6,14 +6,6 @@ Solution: Node’s domain module can be used to centralize error handling for a 
 and this includes EventEmitter instances that emit unhandled error events.
  */
 
-/*
- * Event Emitter can be created using two method
- * 1. By inheriting from base class
- * 2. Mixing: Copy it's method into other classes.
- * In this example we are going to explore the 1st way of doing things.
- * Next example: createEventEmitter1.ts.
- */
-
 const utils = require("util");
 const EventEmitter = require("events").EventEmitter;
 const domain = require('domain');
