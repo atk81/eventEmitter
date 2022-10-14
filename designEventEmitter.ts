@@ -21,7 +21,7 @@
 
 * (you can receive 'n' number of arguments)
 
-* sub1.emit('function_name', foo, bar);
+* emitter.emit('function_name', foo, bar);
 
 *
 
@@ -55,13 +55,6 @@ class Emitter {
                     this.subscriptions.delete(eventName);
                 }
             },
-            emit: (...args)=>{
-                if(subscriptions){
-                    subscriptions.forEach(callbackObj => {
-                        callbackObj.callback.apply(this, args);
-                    });
-                }
-            }
         }
     }
 
@@ -81,8 +74,6 @@ const sub1 = emitter.subscribe('console', ()=>{
     console.log(`console`);
 });
 
-sub1.emit('console');
-
 const sub2 = emitter.subscribe('add', (a, b)=>{
     console.log(`${a + b}`);
 });
@@ -92,11 +83,8 @@ const sub3 = emitter.subscribe('add', (a,b)=>{
 });
 
 emitter.emit('add', 'foo', 'bar');
+emitter.emit('add', 11, 12);
 sub3.release();
 emitter.emit('add', 12, 13);
 
-sub2.emit(12,13);
-sub2.emit('foo','bar');
 sub2.release();
-sub1.emit('console');
-sub2.emit('foo','bar'); // Shouldn't print anything.
